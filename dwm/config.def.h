@@ -76,65 +76,55 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run",/* "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4,*/ NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *browser[]  = { "opera", NULL };
-static const char *killall[]  = { "killall", "/usr/lib/Xorg",NULL };
-static const char *brtup[] = { "brt+5", NULL };
-static const char *brtdn[] = { "brt-5", NULL };
-static const char *brtup1[] = { "brt+1", NULL };
-static const char *brtdn1[] = { "brt-1", NULL };
-static const char *volup[] = { "volup", NULL };
-static const char *voldn[] = { "voldn", NULL };
-static const char *volup5[] = { "volup5", NULL };
-static const char *voldn5[] = { "voldn5", NULL };
-static const char *volmt[] = { "volmt", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_r,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,	                XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY|ShiftMask,		XK_b,	   spawn,	   {.v = browser } },
-	{ MODKEY|ShiftMask,             XK_q,      spawn,          {.v = killall } },
-	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
-	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-	{ MODKEY,                       XK_minus,  setgaps,        {.i = -5 } },
-	{ MODKEY,                       XK_equal,  setgaps,        {.i = +5 } },
-	{ MODKEY|ShiftMask,             XK_equal,  setgaps,        {.i = 0  } },
-	TAGKEYS(                        XK_1,                      0)
-	TAGKEYS(                        XK_2,                      1)
-	TAGKEYS(                        XK_3,                      2)
-	TAGKEYS(                        XK_4,                      3)
-	TAGKEYS(                        XK_5,                      4)
-	TAGKEYS(                        XK_6,                      5)
-	TAGKEYS(                        XK_7,                      6)
-	TAGKEYS(                        XK_8,                      7)
-	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY,                       XK_F7,     spawn,          {.v = brtup } },
-	{ MODKEY,                       XK_F6,     spawn,          {.v = brtdn } },
-	{ MODKEY|ShiftMask,             XK_F7,     spawn,          {.v = brtup1 } },
-	{ MODKEY|ShiftMask,             XK_F6,     spawn,          {.v = brtdn1 } },
-	{ MODKEY, 			XK_F8,     spawn,	   {.v = volmt } },
-	{ MODKEY, 			XK_F9, 	   spawn, 	   {.v = voldn5 } },
-	{ MODKEY, 			XK_F10,    spawn, 	   {.v = volup5 } },
-	{ MODKEY|ShiftMask, 		XK_F9, 	   spawn, 	   {.v = voldn } },
-	{ MODKEY|ShiftMask, 		XK_F10,    spawn, 	   {.v = volup } },
-/*	{ MODKEY|ShiftMask,             XK_p,      quit,           {0} },*/
+	{ MODKEY,                       XK_r,      spawn,			{.v = dmenucmd } },
+	{ MODKEY,				        XK_Return, spawn,			{.v = termcmd } },
+	{ MODKEY|ShiftMask,				XK_b,	   spawn,			{.v = browser } },
+	{ MODKEY|ShiftMask,             XK_q,      spawn,			SHCMD("killall /usr/lib/Xorg") },
+	{ MODKEY,                       XK_b,      togglebar,		{0} },
+	{ MODKEY,                       XK_j,      focusstack,		{.i = +1 } },
+	{ MODKEY,                       XK_k,      focusstack,		{.i = -1 } },
+	{ MODKEY,                       XK_i,      incnmaster,		{.i = +1 } },
+	{ MODKEY,                       XK_d,      incnmaster,		{.i = -1 } },
+	{ MODKEY,                       XK_h,      setmfact,		{.f = -0.05} },
+	{ MODKEY,                       XK_l,      setmfact,		{.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_Return, zoom,			{0} },
+	{ MODKEY,                       XK_Tab,    view,			{0} },
+	{ MODKEY|ShiftMask,             XK_c,      killclient,		{0} },
+	{ MODKEY,                       XK_t,      setlayout,		{.v = &layouts[0]} },
+	{ MODKEY,                       XK_f,      setlayout,		{.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayout,		{.v = &layouts[2]} },
+	{ MODKEY,                       XK_space,  setlayout,		{0} },
+	{ MODKEY|ShiftMask,             XK_space,  togglefloating,	{0} },
+	{ MODKEY,                       XK_0,      view,			{.ui = ~0 } },
+	{ MODKEY|ShiftMask,             XK_0,      tag,				{.ui = ~0 } },
+	{ MODKEY,                       XK_comma,  focusmon,		{.i = -1 } },
+	{ MODKEY,                       XK_period, focusmon,		{.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_comma,  tagmon,			{.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_period, tagmon,			{.i = +1 } },
+	{ MODKEY,                       XK_minus,  setgaps,			{.i = -5 } },
+	{ MODKEY,                       XK_equal,  setgaps,			{.i = +5 } },
+	{ MODKEY|ShiftMask,             XK_equal,  setgaps,			{.i = 0  } },
+	TAGKEYS(                        XK_1,						0)
+	TAGKEYS(                        XK_2,						1)
+	TAGKEYS(                        XK_3,						2)
+	TAGKEYS(                        XK_4,						3)
+	TAGKEYS(                        XK_5,						4)
+	TAGKEYS(                        XK_6,						5)
+	TAGKEYS(                        XK_7,						6)
+	TAGKEYS(                        XK_8,						7)
+	TAGKEYS(                        XK_9,						8)
+	{ MODKEY,                       XK_F7,     spawn,			SHCMD("brightnessctl s +5% && pkill -RTMIN+2 dwmblocks") },
+	{ MODKEY,                       XK_F6,     spawn,			SHCMD("brightnessctl s 5%- && pkill -RTMIN+2 dwmblocks") },
+	{ MODKEY|ShiftMask,             XK_F7,     spawn,			SHCMD("brightnessctl s +1% && pkill -RTMIN+2 dwmblocks") },
+	{ MODKEY|ShiftMask,             XK_F6,     spawn,			SHCMD("brightnessctl s 1%- && pkill -RTMIN+2 dwmblocks") },
+	{ MODKEY,						XK_F8,     spawn,			SHCMD("pactl set-sink-volume @DEFAULT_SINK@ 0% && pkill -RTMIN+10 dwmblocks") },
+	{ MODKEY,						XK_F9, 	   spawn,			SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -RTMIN+10 dwmblocks") },
+	{ MODKEY,						XK_F10,    spawn,			SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -RTMIN+10 dwmblocks") },
+	{ MODKEY|ShiftMask,				XK_F9, 	   spawn,			SHCMD("pactl set-sink-volume @DEFAULT_SINK@ -1% && pkill -RTMIN+10 dwmblocks") },
+	{ MODKEY|ShiftMask,				XK_F10,    spawn,			SHCMD("pactl set-sink-volume @DEFAULT_SINK@ +1% && pkill -RTMIN+10 dwmblocks") },
 };
 
 /* button definitions */
